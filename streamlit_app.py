@@ -87,7 +87,7 @@ if st.button("Predict Price"):
         rounded_price = round(price / 1000) * 1000
 
         # Hybrid range: max of 5k$ or 2% of price
-        range_value = max(5000, rounded_price * 0.02)
+        range_value = round(max(5000, rounded_price * 0.02) / 1000) * 1000
 
         lower = max(0, rounded_price - range_value)
         upper = rounded_price + range_value
