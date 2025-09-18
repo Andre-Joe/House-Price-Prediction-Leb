@@ -83,10 +83,15 @@ if st.button("Predict Price"):
         model = joblib.load("rf_model_finetuned.pkl")
         price = model.predict(input_data)[0]
 
-        # Rounded value and range
+        # Rounded value
         rounded_price = round(price / 1000) * 1000
-        lower = max(0, rounded_price - 5000)
-        upper = rounded_price + 5000
+
+        # Hybrid range: max of 5k$ or 2% of price
+        range_value = max(5000, rounded_price * 0.02)
+
+        lower = max(0, rounded_price - range_value)
+        upper = rounded_price + range_value
+
 
         # Display results
         st.markdown(f"<div class='big-font'>🏠 Predicted Price: ${rounded_price:,.0f}</div>", unsafe_allow_html=True)
